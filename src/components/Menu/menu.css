@@ -7,13 +7,17 @@
 .div-allButtons {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   padding: 0px;
   gap: 16px;
-
-  /* width: 289px;
-  height: 40px; */
+  height: 40px;
   margin: 80px;
+
+}
+
+.buttonsRight{
+    display: flex;
 
 }
 
@@ -50,4 +54,15 @@
   text-align: center;
 
   color: #081e34;
+}
+
+.buttonPlus{
+    width: 52px;
+    height: 52px;
+    background-color: #081E34;
+    color: #F0F0F0;
+    font-size: 26px;
+    border-radius:100px;
+    border-color: transparent;
+
 }
