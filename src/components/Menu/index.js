@@ -20,12 +20,12 @@ export default function Menu() {
       deleted: false,
     },
     { id: 4, task: "Book tickets to Astana", status: false, deleted: false },
-    { id: 5, task: "Packing", done: false, status: false },
+    { id: 5, task: "Packing", status: false, deleted: false },
   ];
 
 
 
-  // to be continued :)
+  // to be continued :)s
 
 
   const [ModalShown, setModalShown] = useState(false);
