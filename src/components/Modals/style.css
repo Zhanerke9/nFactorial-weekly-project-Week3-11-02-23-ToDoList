@@ -41,3 +41,8 @@
   background-color: #081e34;
   color: #ffffff;
 }
+
+.tasks-List{
+  display: flex;
+    flex: 1;
+}

@@ -1,7 +1,6 @@
 import "./menu.css";
-import { v4 as uuidv4 } from "uuid";
 import React, { useState } from "react";
-import Modal from '../Modals/index.js'
+// import Modal from '../Modals/index.js'
 import ToDoList from "../ToDoList";
 
 export default function Menu() {
@@ -24,49 +23,30 @@ export default function Menu() {
   ];
 
 
-
-  // to be continued :)s
-
-
-  const [ModalShown, setModalShown] = useState(false);
   const [ToDos, setToDos] = useState(tasksAll);
 
-  const openModal =() => {
-    setModalShown(!ModalShown);
-  }
-
-  const onFormSubmit = (todo) => {
-    if (todo !==""){
-    setToDos([...ToDos, {task: todo, id: uuidv4(), status: false, deleted: false }]);
-    }
-  };
-
-  const closeModal = () => {
-    setModalShown(false);
-  };
-
   return (
-    <div className="bigDiv">
-      <div className="div-allButtons">
-        <div className="buttonsRight">
-          <button className="menu-buttons">
-            <p className="menu-buttonsText">To Do</p>
-          </button>
-          <button className="menu-buttons">
-            <p className="menu-buttonsText">Done</p>
-          </button>
-          <button className="menu-buttons">
-            <p className="menu-buttonsText">Trash</p>
-          </button>
-        </div>
-        <div>
-            <button className="buttonPlus" onClick={openModal} type="submit">
-              +
-            </button>
-            {ModalShown && <Modal onFormSubmit={onFormSubmit} onModalClose={closeModal}/>}
-          {/* </form> */}
-        </div>
-      </div>
+    // <div className="bigDiv">
+    //   <div className="div-allButtons">
+    //     <div className="buttonsRight">
+    //       <button className="menu-buttons" onClick={()=>todoFilter('all')}>
+    //         <p className="menu-buttonsText" >To Do</p>
+    //       </button>
+    //       <button className="menu-buttons" onClick={()=>todoFilter(true)}>
+    //         <p className="menu-buttonsText">Done</p>
+    //       </button>
+    //       <button className="menu-buttons" onClick={()=>todoFilter(false)}>
+    //         <p className="menu-buttonsText">Trash</p>
+    //       </button>
+    //     </div>
+    //     <div>
+    //         <button className="buttonPlus" onClick={openModal} type="submit">
+    //           +
+    //         </button>
+    //         {ModalShown && <Modal onFormSubmit={onFormSubmit} onModalClose={closeModal}/>}
+    //       {/* </form> */}
+    //     </div>
+    //   </div>
       <div className="tasks-List">
       <ToDoList todo={ToDos} setTodo={setToDos} />
         {/* <button></button> */}
@@ -78,7 +58,8 @@ export default function Menu() {
             <li key={item.id}>{item.task}</li>
           ))} */}
         {/* </div> */}
+            {/* </div> */}
       </div>
-    </div>
+
   );
 }
