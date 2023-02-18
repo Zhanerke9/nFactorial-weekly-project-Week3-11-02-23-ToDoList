@@ -50,9 +50,9 @@ const ButtonsModal = ( {item, deleteTodo, editTodo, statusTodo, closeNewModal, i
     setNewTrash(newTrash.filter((item) => item.id !== id));
   }
 
-  function deleteFromTrash(id) {
-    setNewTrash(newTrash.filter((item) => item.id !== id));
-  }
+  // function deleteFromTrash(id) {
+  //   setNewTrash(newTrash.filter((item) => item.id !== id));
+  // }
 
   const [newModalShown, setNewModalShown] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
@@ -69,7 +69,7 @@ const ButtonsModal = ( {item, deleteTodo, editTodo, statusTodo, closeNewModal, i
 
 return (
   <div className="buttonsModal" ref={modalRef}>
-    { item.deleted ===true?
+    { item.deleted ==="yes"?
     (<>
     <button onClick={() => showTrashModal(item.id)} className="threedotsStyle">
     <img src={threeDots} alt="buttons"/>

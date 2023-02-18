@@ -59,7 +59,7 @@ export default function ToDoList({ todo, setTodo }) {
     } else {
       let newToDo = [...todo].filter((item) => {
         if (item.id === id) {
-          item.deleted = true;
+          item.deleted = "yes";
           setNewTrash([...newTrash, item]);
         }
         return !item.deleted;
@@ -234,16 +234,18 @@ export default function ToDoList({ todo, setTodo }) {
             ) : (
               <div className="TaskButtonsToModals">
                 <>
-                  <button onClick={()=>showButtonsModal(item.id)}>
+                {!inTrash && <button onClick={()=>showButtonsModal(item.id)}>
                     <img src={threeDots} alt="buttons" />
-                  </button>
+                  </button> }
+
                   {
                     selectedItemId === item.id && (
                       < ButtonsModal  item={item}
                       deleteTodo={deleteTodo}
                       editTodo={editTodo}
                       statusTodo={statusTodo}
-                      closeNewModal={closeButtonsModal}/>
+                      closeNewModal={closeButtonsModal}
+                      inTrash = {inTrash}/>
                       // restoreTodo={restoreTodo}
                       // deleteFromTrash={deleteFromTrash}/>
                       // <div className="newModal">
@@ -263,11 +265,11 @@ export default function ToDoList({ todo, setTodo }) {
                   <button onClick={() => editTodo(item.id, item.task)}>
                     <FontAwesomeIcon icon={faEdit} />
                   </button> */}
-                  { item.deleted !== "yes"?(
+                  { (item.deleted === false) && (
                   <button onClick={() => statusTodo(item.id)} className="taskButtonsStyle">
 
-                  {item.status === false ? (<FaRegSquare />) : (item.deleted !==true ? <FaCheckSquare />: <></>)}
-                  </button>) : ""
+                  {item.status === false ? (<FaRegSquare />) :  <FaCheckSquare />}
+                  </button>)
                   }
                 </div>
               </div>
