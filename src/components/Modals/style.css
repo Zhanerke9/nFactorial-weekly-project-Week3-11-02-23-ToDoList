@@ -46,3 +46,39 @@
   display: flex;
     flex: 1;
 }
+
+.style-modals {
+width: 80%;
+}
+
+.order-correction{
+  display: flex;
+  order:1;
+}
+
+.deleteModal{
+  display: flex;
+}
+
+img {
+  border-color: transparent;
+  outline: transparent;
+}
+
+.buttonsModalStyle{
+  height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 130px;
+    border-color: transparent;
+    border-radius: 12px;
+    /* background-color: #E4E6E7; */
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.16));
+}
+
+.threedotsStyle{
+  position: relative;
+    width: 18px;
+    height: 28px;
+}

@@ -17,7 +17,9 @@
 }
 
 .buttonsRight{
-    display: flex;
+  display: flex;
+  width: 280px;
+  gap: 16px;
 
 }
 
@@ -81,8 +83,36 @@
 
 .tasksWithButtonsModals{
   display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 5px;
 }
 
-/* .TaskButtonsToModals{
+.buttonsModal{
+  display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    left: -18px;
+    width: fit-content;
+    gap: 3px;
+}
+.TaskButtonsToModals{
+  display: flex;
+}
 
-} */
+.newModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+.taskButtonsStyle{
+  width: 28px;
+  height: 28px;
+}
