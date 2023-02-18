@@ -1,3 +1,17 @@
+p {
+  margin: 0px;
+}
+
+img {
+  border-color: transparent;
+}
+
+button {
+  border-color: transparent;
+  background-color: transparent;
+  text-decoration: none !important;
+}
+
 .modalStyle {
   width: 236px;
   height: 202px;
@@ -81,4 +95,28 @@ img {
   position: relative;
     width: 18px;
     height: 28px;
+}
+
+.TrashModalButtons {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+border-radius: 12px;
+background-color: #E4E6E7;
+filter: drop-shadow(0px 4px 4px #E4E6E7);
+width: 160px;
+padding: 12px 4px;
+gap: 10px;
+position: relative;
+top: 5px;
+    left: -10px;
+}
+
+.trashButtonStyle{
+  display: flex;
+  gap: 5px;
+  wisth: 100%;
+  margin: 0px;
+  padding: 0px;
+  margin-left: 4px;
 }

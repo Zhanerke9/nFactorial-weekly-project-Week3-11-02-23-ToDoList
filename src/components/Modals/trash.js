@@ -1,37 +1,10 @@
-// import React from "react";
-// import "./style.css";
-
-// const TrashModal = ({ selectedTodo, restoreTodo, deleteTodo }) => {
-//     return (
-//     <div>
-//     <p>Are you sure you want to delete this task?</p>
-//     <button onClick={() => restoreTodo(selectedTodo)}>Restore</button>
-//     <button onClick={() => deleteTodo(selectedTodo)}>Delete Permanently</button>
-//     </div>
-//     );
-//     };
-
-//     export default TrashModal;
-
-
 import React from "react";
 import { useEffect, useRef } from "react";
+import {faTrash, faWindowRestore} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './style.css'
 
-// export default function TrashModal({ item, restoreTodo, deleteFromTrash }) {
-
-//     return (
-//         <div className="trashModal">
-//           <button onClick={() => restoreTodo(item.id)} className="taskButtonsStyle">
-//             Restore
-//           </button>
-//           <button onClick={() => deleteFromTrash(item.id)} className="taskButtonsStyle">
-//             Delete permanently
-//           </button>
-//         </div>
-//       );
-// }
-
-export default function TrashModal({item, restoreTodo, deleteFromTrash, closeTrashModal, inTrash, deleteTodo }) {
+export default function TrashModal({item, restoreTodo, deleteFromTrash, closeTrashModal }) {
 
     const modalRef = useRef(null);
 
@@ -48,10 +21,9 @@ export default function TrashModal({item, restoreTodo, deleteFromTrash, closeTra
   }, [modalRef, closeTrashModal]);
 
     return (
-    <div ref={modalRef}>
-      <button onClick={()=>restoreTodo(item.id)}>Restore</button>
-      <button onClick={()=>deleteTodo(item.id)}>Delete Permanently</button>
-      {/* <button onClick={closeTrashModal}>Cancel</button> */}
+    <div ref={modalRef} className="TrashModalButtons">
+      <button onClick={()=>deleteFromTrash(item.id)} className="trashButtonStyle"><FontAwesomeIcon icon={faTrash} /><p>Delete Forever</p></button>
+      <button onClick={()=>restoreTodo(item.id)} className="trashButtonStyle" ><FontAwesomeIcon icon={faWindowRestore} /><p>Move Back to To Do</p></button>
     </div>
   );
 }
