@@ -59,7 +59,8 @@ export default function ToDoList({ todo, setTodo }) {
     setFiltered(newToDo);
     setNewTrash(newToDo);
     setTodo(todo.filter((item) => item.id !== id));
-    setInTrash(false)
+    setInTrash(false);
+    setNewModalShown(false);
   }
 
     function statusTodo(id) {
