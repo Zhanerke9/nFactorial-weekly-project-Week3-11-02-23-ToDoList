@@ -55,13 +55,21 @@ export default function ToDoList({ todo, setTodo }) {
 
 
   function deleteFromTrash(id) {
-    let newToDo = newTrash.filter((item) => item.id !== id);
-    setFiltered(newToDo);
-    setNewTrash(newToDo);
-    setTodo(todo.filter((item) => item.id !== id));
+    const newToDo = ToDos.filter((item) => item.id !== id);
+    const newTrashItems = newTrash.filter((item) => item.id !== id);
+    setToDos(newToDo);
+    setFiltered(
+      inTrash
+        ? newTrashItems
+        : newToDo.filter(
+            (item) => item.deleted === "no" && (ActiveDone ? item.status === true : true)
+          )
+    );
+    setNewTrash(newTrashItems);
     setInTrash(false);
     setNewModalShown(false);
   }
+
 
     function statusTodo(id) {
       const newTodo = todo.map((item) => {
@@ -71,6 +79,7 @@ export default function ToDoList({ todo, setTodo }) {
         return item;
       }
       );
+
 
       const sortedTodo = newTodo.sort((a, b) => {if (a.status === b.status) {return 0;}
         if (a.status) {return 1;}
