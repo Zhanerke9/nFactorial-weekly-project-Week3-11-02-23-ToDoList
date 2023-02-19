@@ -17,39 +17,6 @@ export default function ToDoList({ todo, setTodo }) {
   const [ToDos, setToDos] = useState(todo); // for including new task in a list?
   const [filtered, setFiltered] = useState(ToDos); // for tracking all changes!!! - the last one to use in filters :)
 
-  // function deleteTodo(id) {
-  //   const itemToDelete = todo.find((item) => item.id === id);
-  //   if (itemToDelete.deleted === "yes") {
-  //     const newTodo = newTrash.filter((item) => item.id !== id);
-  //     setFiltered(
-  //       newTodo.filter(
-  //         (item) =>
-  //           item.deleted === "no" && (!ActiveDone || item.status === true)
-  //       )
-  //     );
-  //     setNewTrash(newTodo);
-  //     setTodo(todo.filter((item) => item.id !== id));
-  //     setInTrash(false);
-  //   } else {
-  //     const newTodo = todo.map((item) => {
-  //       if (item.id === id) {
-  //         item.deleted = "yes";
-  //         setNewTrash([...newTrash, item]);
-  //         setInTrash(true);
-  //       }
-  //       return item;
-  //     });
-  //     setFiltered(
-  //       newTodo.filter(
-  //         (item) =>
-  //           item.deleted === "no" && (!ActiveDone || item.status === true)
-  //       )
-  //     );
-  //     setTodo(newTodo);
-  //   }
-  //   setNewModalShown(false);
-  // }
-
   function deleteTodo(id) {
     const itemToDelete = todo.find((item) => item.id === id);
     if (itemToDelete.deleted === "yes") {
@@ -84,17 +51,13 @@ export default function ToDoList({ todo, setTodo }) {
   }
 
 
-  function restoreTodo(id) {
+  function restoreTodo (id) {
     let itemToRestore = newTrash.find((item) => item.id === id);
     if (itemToRestore.deleted === "yes") {
-      let newToDo = [...todo.filter((item) => item.id !== id), itemToRestore];
-      setTodo(newToDo);
+      itemToRestore.deleted = "no";
+      let newTodo = [...todo.filter((item)=> item.id !== id), itemToRestore];
+      setTodo(newTodo);
       setNewTrash(newTrash.filter((item) => item.id !== id));
-      setFiltered(
-        newToDo.filter(
-          (item) => item.deleted === "no" && (!ActiveDone || item.status === true)
-        )
-      );
       setInTrash(false);
     } else {
       let newTrashItems = newTrash.map((item) => {
@@ -104,30 +67,20 @@ export default function ToDoList({ todo, setTodo }) {
         return item;
       });
       setNewTrash(newTrashItems);
-      setFiltered(newTrashItems.filter((item) => item.deleted === "yes"));
+      let newTodo = [...todo, itemToRestore];
+      setTodo(newTodo);
+      setFiltered(newTodo.filter((item) => item.deleted === "no"));
     }
     setNewModalShown(false);
+    setInTrash(false)
   }
-
-
-
-  // function deleteFromTrash(id) {
-  //   const newToDo = ToDos.filter((item) => item.id !== id);
-  //   const newTrashItems = newTrash.filter((item) => item.id !== id);
-  //   setToDos(newToDo);
-  //   setFiltered(
-  //     newToDo    );
-  //   setNewTrash(newTrashItems);
-  //   setInTrash(false);
-  //   setNewModalShown(false);
-  // }
 
   function deleteFromTrash(id) {
     const newToDo = ToDos.filter((item) => item.id !== id);
     const newTrashItems = newTrash.filter((item) => item.id !== id);
     setToDos(newToDo);
     setTodo(newToDo);
-    setFiltered(newToDo.filter(item => item.deleted === (inTrash ? "yes" : "no")));
+    setFiltered(newTrashItems);
     setNewTrash(newTrashItems);
     setInTrash(false);
     setNewModalShown(false);
@@ -153,7 +106,6 @@ export default function ToDoList({ todo, setTodo }) {
         return -1;
       }
     });
-
     setTodo(sortedTodo);
     setFiltered(
       inTrash
@@ -166,6 +118,7 @@ export default function ToDoList({ todo, setTodo }) {
     );
     setNewModalShown(false);
   }
+
 
   function editTodo(id, task) {
     setEdit(id);
@@ -183,13 +136,6 @@ export default function ToDoList({ todo, setTodo }) {
     setEdit(null);
   }
 
-  function filterTodo() {
-    let filteredTodos = ToDos.filter((item) => item.deleted === "no");
-    if (ActiveDone) {
-      filteredTodos = filteredTodos.filter((item) => item.status === true);
-    }
-    setFiltered(filteredTodos);
-  }
 
   const [ModalShown, setModalShown] = useState(false);
   // opening modal for new task
@@ -250,7 +196,6 @@ export default function ToDoList({ todo, setTodo }) {
   const [ActiveTrash, setActiveTrash] = useState(false);
   const selectToDo = () => {
     setActiveToDo(true);
-    setActiveDone(false);
     setActiveTrash(false);
     setFiltered(todo.filter((item) => item.deleted === "no"));
     setInTrash(false);
@@ -268,7 +213,6 @@ export default function ToDoList({ todo, setTodo }) {
 
   const selectTrash = () => {
     setActiveToDo(false);
-    setActiveDone(false);
     setActiveTrash(true);
     setFiltered(todo.filter((item) => item.deleted === "yes"));
     setInTrash(true);
