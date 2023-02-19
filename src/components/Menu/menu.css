@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 p {
   margin: 0px;
 }
@@ -107,6 +110,7 @@ img {
     width: 100%;
     justify-content: flex-start;
     gap: 5px;
+    position: relative;
 }
 
 .buttonsModal{
@@ -137,4 +141,30 @@ img {
 .taskButtonsStyle{
   width: 28px;
   height: 28px;
+}
+
+.textCorrection{
+  display: flex;
+    position: absolute;
+    text-decoration: none;
+    left: 50px;
+}
+
+hr {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.textOnTaskTop {
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-bottom: 24px;
+font-family: Inter;
+font-weight: 700;
+font-size: 24px;
+line-height: 28px;
+/* Line height: 96% */
+justify-content: flex-start;
+align-items:center;
+color: #151517;
 }

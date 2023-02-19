@@ -18,7 +18,7 @@ button {
   background-color: #e4e6e7;
   border-radius: 17px;
   position: absolute;
-  top: 6%;
+  top: 10.35%;
   right: 10%;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,8 @@ button {
   align-items: flex-start;
   flex-wrap: wrap;
   text-align: start;
+  padding-top: 13px;
+  padding-left: 16px;
 }
 
 .formInput {
@@ -107,9 +109,10 @@ filter: drop-shadow(0px 4px 4px #E4E6E7);
 width: 160px;
 padding: 12px 4px;
 gap: 10px;
-position: relative;
-top: 5px;
-    left: -10px;
+display: flex;
+position: absolute;
+top: 25px;
+z-index: 1;
 }
 
 .trashButtonStyle{

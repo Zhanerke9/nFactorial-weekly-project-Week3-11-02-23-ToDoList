@@ -31,7 +31,7 @@ const Modal = (props) => {
     <div ref={modalRef} className="modalStyle">
       <p style={{ margin: 0 }}>Add New To Do</p>
       <form className="formInput" onSubmit={onSubmit}>
-        <input
+        <textarea
           className="ModalInputStyle"
           type="text"
           placeholder="Your text"
