@@ -13,116 +13,112 @@ export default function ToDoList({ todo, setTodo }) {
   const [edit, setEdit] = useState(null); // inside map for statements to work
   const [value, setValue] = useState(""); // for changes in the tasks already in list
   const [newTrash, setNewTrash] = useState([]); // for collection of items in trash
-  const [inTrash, setInTrash] = useState(false); // for checking if item in trash, so that filter works correctly
   const [ToDos, setToDos] = useState(todo); // for including new task in a list?
   const [filtered, setFiltered] = useState(ToDos); // for tracking all changes!!! - the last one to use in filters :)
+  // for colour change of main buttons & tracking at which section we are for filtering:
+  const [ActiveToDo, setActiveToDo] = useState(true);
+  const [ActiveDone, setActiveDone] = useState(false);
+  const [ActiveTrash, setActiveTrash] = useState(false);
 
   function deleteTodo(id) {
-    const itemToDelete = todo.find((item) => item.id === id);
-    if (itemToDelete.deleted === "yes") {
-      const newTodo = newTrash.filter((item) => item.id !== id);
-      setNewTrash(newTodo);
-      setTodo(todo.filter((item) => item.id !== id));
-      setInTrash(false);
-      setFiltered(
-        newTodo.filter(
-          (item) =>
-            item.deleted === "yes"
+    let itemToDelete = todo.find((item) => item.id === id);
+    itemToDelete.deleted = "yes";
+    setActiveTrash(false);
+    setNewTrash([...newTrash, itemToDelete]);
+    ActiveToDo
+      ? setFiltered([...todo].filter((item) => item.deleted === "no"))
+      : ActiveDone
+      ? setFiltered(
+          [...todo].filter(
+            (item) => item.status === true && item.deleted === "no"
+          )
         )
-      );
-    } else {
-      const newTodo = todo.map((item) => {
-        if (item.id === id) {
-          item.deleted = "yes";
-          setNewTrash([...newTrash, item]);
-          setInTrash(true);
-        }
-        return item;
-      });
-      setTodo(newTodo);
-      setFiltered(
-        newTodo.filter(
-          (item) =>
-            item.deleted === "no"
-        )
-      );
-    }
+      : setFiltered([...todo].filter((item) => item.deleted === "yes"));
+    setModalShown(false);
     setNewModalShown(false);
   }
 
-
-  function restoreTodo (id) {
+  function restoreTodo(id) {
     let itemToRestore = newTrash.find((item) => item.id === id);
-    if (itemToRestore.deleted === "yes") {
-      itemToRestore.deleted = "no";
-      let newTodo = [...todo.filter((item)=> item.id !== id), itemToRestore];
-      setTodo(newTodo);
-      setNewTrash(newTrash.filter((item) => item.id !== id));
-      setInTrash(false);
+    itemToRestore.deleted = "no";
+    let newToDo = [...todo.filter((item) => item.id !== id), itemToRestore];
+    setTodo(newToDo);
+    setToDos(newToDo);
+    // setActiveDone(false);
+    // setActiveToDo(false);
+    setNewTrash(newTrash.filter((item) => item.id !== id));
+    if (ActiveToDo) {
+      setFiltered(newToDo.filter((item) => item.deleted === "no"));
+    } else if (ActiveDone) {
+      setFiltered(
+        newToDo.filter((item) => item.status && item.deleted === "no")
+      );
     } else {
-      let newTrashItems = newTrash.map((item) => {
-        if (item.id === id) {
-          item.deleted = "no";
-        }
-        return item;
-      });
-      setNewTrash(newTrashItems);
-      let newTodo = [...todo, itemToRestore];
-      setTodo(newTodo);
-      setFiltered(newTodo.filter((item) => item.deleted === "no"));
+      setFiltered(newToDo.filter((item) => item.deleted === "yes"));
     }
+    setModalShown(false);
     setNewModalShown(false);
-    setInTrash(false)
   }
 
   function deleteFromTrash(id) {
-    const newToDo = ToDos.filter((item) => item.id !== id);
-    const newTrashItems = newTrash.filter((item) => item.id !== id);
-    setToDos(newToDo);
-    setTodo(newToDo);
-    setFiltered(newTrashItems);
-    setNewTrash(newTrashItems);
-    setInTrash(false);
+    // setActiveDone(false);
+    // setActiveToDo(false);
+    let newToDo = newTrash.filter((item) => item.id !== id);
+    setFiltered(newToDo);
+    setNewTrash(newToDo);
+    setTodo(todo.filter((item) => item.id !== id));
+    setToDos(todo.filter((item) => item.id !== id));
+    setModalShown(false);
     setNewModalShown(false);
   }
 
-
+  // function statusTodo(id) {
+  //   let itemToUpdate = [...todo].find((item) => item.id === id);
+  //   itemToUpdate.status = !itemToUpdate.status;
+  //   let trueItems = [...todo].filter((item) => item.status === true);
+  //   let falseItems = [...todo].filter((item) => item.status === false);
+  //   setTodo([...falseItems, ...trueItems]);
+  //   setToDos([...falseItems, ...trueItems]);
+  //   (ActiveToDo&& !ActiveTrash && !ActiveDone)
+  //     ? setFiltered([...ToDos].filter(item => item.deleted === "no"))
+  //     : (ActiveDone && !ActiveToDo && !ActiveTrash)
+  //     ? setFiltered(
+  //         [...todo].filter(
+  //           (item) => item.status === true && item.deleted === "no"
+  //         )
+  //       )
+  //     : setFiltered([...todo].filter((item) => item.deleted === "yes"));
+  //   setModalShown(false);
+  //   setNewModalShown(false);
+  // }
 
   function statusTodo(id) {
-    const newTodo = todo.map((item) => {
-      if (item.id === id) {
-        item.status = !item.status;
-      }
-      return item;
-    });
+    let itemToUpdate = todo.find((item) => item.id === id);
+    itemToUpdate.status = !itemToUpdate.status;
 
-    const sortedTodo = newTodo.sort((a, b) => {
-      if (a.status === b.status) {
-        return 0;
-      }
-      if (a.status) {
-        return 1;
-      } else {
-        return -1;
-      }
-    });
-    setTodo(sortedTodo);
-    setFiltered(
-      inTrash
-        ? newTrash
-        : sortedTodo.filter(
-            (item) =>
-              item.deleted === "no" &&
-              (ActiveDone ? item.status === true : true)
-          )
-    );
+    let sortedItems = todo.sort((a, b) => (a.status === b.status) ? 0 : a.status ? 1 : -1);
+    // This will sort the items so that items with status === true will be moved down
+
+    setTodo(sortedItems);
+    setToDos(sortedItems);
+
+    if (ActiveToDo && !ActiveTrash && !ActiveDone) {
+    setFiltered(sortedItems.filter((item) => item.deleted === "no"));
+    } else if (ActiveDone && !ActiveToDo && !ActiveTrash) {
+    setFiltered(sortedItems.filter((item) => item.status === true && item.deleted === "no"));
+    } else {
+    setFiltered(sortedItems.filter((item) => item.deleted === "yes"));
+    }
+
+    setModalShown(false);
     setNewModalShown(false);
-  }
-
+    }
 
   function editTodo(id, task) {
     setEdit(id);
     setValue(task);
+    setModalShown(false);
+    setNewModalShown(false);
   }
 
   function saveTodo(id) {
@@ -134,16 +130,16 @@ export default function ToDoList({ todo, setTodo }) {
     });
     setTodo(newTodo);
     setEdit(null);
+    setModalShown(false);
+    setNewModalShown(false);
   }
 
-
   const [ModalShown, setModalShown] = useState(false);
-  // opening modal for new task
+
   const openModal = () => {
     setModalShown(!ModalShown);
   };
 
-  // for saving new task
   const onFormSubmit = (todo) => {
     if (todo !== "") {
       const newTodo = [
@@ -155,14 +151,14 @@ export default function ToDoList({ todo, setTodo }) {
       setTodo(newTodo);
     }
     closeModal();
+    setModalShown(false);
+    setNewModalShown(false);
   };
 
-  // for closing modal for new task
   const closeModal = () => {
     setModalShown(false);
   };
 
-  // for buttonsModal open and close
   const [newModalShown, setNewModalShown] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
@@ -176,7 +172,6 @@ export default function ToDoList({ todo, setTodo }) {
     setNewModalShown(false);
   }
 
-  // for trashModal open&close
   const [TrashItemId, setTrashItemId] = useState(null);
   function openTrashModal(id) {
     setTrashItemId(id);
@@ -188,34 +183,47 @@ export default function ToDoList({ todo, setTodo }) {
     setNewModalShown(false);
   }
 
+  function todoFilter(filterType) {
+    if (filterType === "all") {
+      setFiltered([...ToDos].filter((item) => item.deleted === "no"));
+      setActiveDone(false);
+      setActiveTrash(false);
+      setActiveToDo(true);
+    } else if (filterType === true) {
+      setFiltered(
+        [...ToDos].filter(
+          (item) => item.status === true && item.deleted === "no"
+        )
+      );
+      setActiveDone(true);
+      setActiveTrash(false);
+      setActiveToDo(false);
+    } else if (filterType === "yes") {
+      setFiltered([...ToDos].filter((item) => item.deleted === "yes"));
+      setActiveDone(false);
+      setActiveTrash(true);
+      setActiveToDo(false);
+    }
+  }
+
   console.log(todo);
 
-  // for colour change of main buttons & filters
-  const [ActiveToDo, setActiveToDo] = useState(true);
-  const [ActiveDone, setActiveDone] = useState(false);
-  const [ActiveTrash, setActiveTrash] = useState(false);
   const selectToDo = () => {
     setActiveToDo(true);
+    setActiveDone(false);
     setActiveTrash(false);
-    setFiltered(todo.filter((item) => item.deleted === "no"));
-    setInTrash(false);
   };
 
   const selectDone = () => {
     setActiveToDo(false);
     setActiveDone(true);
     setActiveTrash(false);
-    setFiltered(
-      todo.filter((item) => item.status === true && item.deleted === "no")
-    );
-    setInTrash(false)
   };
 
   const selectTrash = () => {
     setActiveToDo(false);
+    setActiveDone(false);
     setActiveTrash(true);
-    setFiltered(todo.filter((item) => item.deleted === "yes"));
-    setInTrash(true);
   };
 
   return (
@@ -224,7 +232,10 @@ export default function ToDoList({ todo, setTodo }) {
         <div className="buttonsRight">
           <button
             className="menu-buttons"
-            onClick={selectToDo}
+            onClick={() => {
+              selectToDo();
+              todoFilter("all");
+            }}
             style={{
               backgroundColor: ActiveToDo
                 ? "rgba(8, 30, 52, 0.42)"
@@ -236,7 +247,10 @@ export default function ToDoList({ todo, setTodo }) {
           </button>
           <button
             className="menu-buttons"
-            onClick={selectDone}
+            onClick={() => {
+              selectDone();
+              todoFilter(true);
+            }}
             style={{
               backgroundColor: ActiveDone
                 ? "rgba(8, 30, 52, 0.42)"
@@ -248,7 +262,10 @@ export default function ToDoList({ todo, setTodo }) {
           </button>
           <button
             className="menu-buttons"
-            onClick={selectTrash}
+            onClick={() => {
+              selectTrash();
+              todoFilter("yes");
+            }}
             style={{
               backgroundColor: ActiveTrash
                 ? "rgba(8, 30, 52, 0.42)"
