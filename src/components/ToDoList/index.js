@@ -21,19 +21,19 @@ export default function ToDoList({ todo, setTodo }) {
   const [ActiveTrash, setActiveTrash] = useState(false);
 
   function deleteTodo(id) {
-    let itemToDelete = todo.find((item) => item.id === id);
+    let itemToDelete = ToDos.find((item) => item.id === id);
     itemToDelete.deleted = "yes";
     setActiveTrash(false);
     setNewTrash([...newTrash, itemToDelete]);
     ActiveToDo
-      ? setFiltered([...todo].filter((item) => item.deleted === "no"))
+      ? setFiltered([...ToDos].filter((item) => item.deleted === "no"))
       : ActiveDone
       ? setFiltered(
-          [...todo].filter(
+          [...ToDos].filter(
             (item) => item.status === true && item.deleted === "no"
           )
         )
-      : setFiltered([...todo].filter((item) => item.deleted === "yes"));
+      : setFiltered([...ToDos].filter((item) => item.deleted === "yes"));
     setModalShown(false);
     setNewModalShown(false);
   }
@@ -41,7 +41,7 @@ export default function ToDoList({ todo, setTodo }) {
   function restoreTodo(id) {
     let itemToRestore = newTrash.find((item) => item.id === id);
     itemToRestore.deleted = "no";
-    let newToDo = [...todo.filter((item) => item.id !== id), itemToRestore];
+    let newToDo = [...ToDos.filter((item) => item.id !== id), itemToRestore];
     setTodo(newToDo);
     setToDos(newToDo);
     setNewTrash(newTrash.filter((item) => item.id !== id));
@@ -62,18 +62,18 @@ export default function ToDoList({ todo, setTodo }) {
     let newToDo = newTrash.filter((item) => item.id !== id);
     setFiltered(newToDo);
     setNewTrash(newToDo);
-    setTodo(todo.filter((item) => item.id !== id));
-    setToDos(todo.filter((item) => item.id !== id));
+    setTodo(ToDos.filter((item) => item.id !== id));
+    setToDos(ToDos.filter((item) => item.id !== id));
     setModalShown(false);
     setNewModalShown(false);
   }
 
   function statusTodo(id) {
-    let itemToUpdate = todo.find((item) => item.id === id);
+    let itemToUpdate = ToDos.find((item) => item.id === id);
     itemToUpdate.status = !itemToUpdate.status;
 
         // This will sort the items so that items with status === true will be moved down:
-    let sortedItems = todo.sort((a, b) => (a.status === b.status) ? 0 : a.status ? 1 : -1);
+    let sortedItems = ToDos.sort((a, b) => (a.status === b.status) ? 0 : a.status ? 1 : -1);
 
     setTodo(sortedItems);
     setToDos(sortedItems);
