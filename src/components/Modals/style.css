@@ -32,6 +32,7 @@ button {
   width: inherit;
   border-color: transparent;
   height: 120px;
+  font-family: Inter;
   font-size: 16px;
   display: flex;
   align-items: flex-start;
@@ -56,6 +57,9 @@ button {
   border-radius: 100px;
   background-color: #081e34;
   color: #ffffff;
+  font-family: Inter;
+  font-style: bold;
+font-size: 14px;
 }
 
 .tasks-List{

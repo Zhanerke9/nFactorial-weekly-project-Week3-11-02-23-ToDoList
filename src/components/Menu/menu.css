@@ -1,13 +1,12 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 p {
   margin: 0px;
 }
-.bigDiv{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+.bigDiv {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .div-allButtons {
@@ -19,19 +18,17 @@ p {
   gap: 16px;
   height: 40px;
   margin: 80px;
-
 }
 
-.buttonsRight{
+.buttonsRight {
   display: flex;
   width: 280px;
   gap: 16px;
-
 }
 
 .menu-buttons {
   margin: 0px;
-    padding: 0px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,16 +48,16 @@ p {
   border-color: transparent;
 }
 
-.buttonsRight :hover{
+.buttonsRight :hover {
   background-color: #28292a6d;
 }
 
-.menu-buttons :hover{
+.menu-buttons :hover {
   background-color: transparent;
 }
 
-button :hover{
-  color:#712FFF;
+button :hover {
+  color: #712fff;
 }
 
 img {
@@ -83,18 +80,17 @@ img {
   color: #081e34;
 }
 
-.buttonPlus{
-    width: 52px;
-    height: 52px;
-    background-color: #081E34;
-    color: #F0F0F0;
-    font-size: 26px;
-    border-radius:100px;
-    border-color: transparent;
-
+.buttonPlus {
+  width: 52px;
+  height: 52px;
+  background-color: #081e34;
+  color: #f0f0f0;
+  font-size: 26px;
+  border-radius: 100px;
+  border-color: transparent;
 }
 
-.ListOfTasks{
+.ListOfTasks {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -105,25 +101,25 @@ img {
   margin-right: 80px;
 }
 
-.tasksWithButtonsModals{
+.tasksWithButtonsModals {
   display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 5px;
-    position: relative;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 5px;
+  position: relative;
 }
 
-.buttonsModal{
+.buttonsModal {
   display: flex;
   flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    position: relative;
-    left: -18px;
-    width: fit-content;
-    gap: 3px;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  left: -18px;
+  width: fit-content;
+  gap: 3px;
 }
-.TaskButtonsToModals{
+.TaskButtonsToModals {
   display: flex;
 }
 
@@ -138,16 +134,19 @@ img {
   padding: 20px;
 }
 
-.taskButtonsStyle{
+.taskButtonsStyle {
   width: 28px;
   height: 28px;
 }
 
-.textCorrection{
+.textCorrection {
   display: flex;
-    position: absolute;
-    text-decoration: none;
-    left: 50px;
+  position: absolute;
+  text-decoration: none;
+  left: 50px;
+  font-family: Inter;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 hr {
@@ -159,12 +158,12 @@ hr {
   margin-left: 80px;
   margin-right: 80px;
   margin-bottom: 24px;
-font-family: Inter;
-font-weight: 700;
-font-size: 24px;
-line-height: 28px;
-/* Line height: 96% */
-justify-content: flex-start;
-align-items:center;
-color: #151517;
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  /* Line height: 96% */
+  justify-content: flex-start;
+  align-items: center;
+  color: #151517;
 }

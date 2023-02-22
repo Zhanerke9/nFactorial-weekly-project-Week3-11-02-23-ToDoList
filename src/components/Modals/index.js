@@ -29,7 +29,7 @@ const Modal = (props) => {
 
   return (
     <div ref={modalRef} className="modalStyle">
-      <p style={{ margin: 0 }}>Add New To Do</p>
+      <p style={{ margin: 0, fontFamily: 'Inter', fontWeight: 'bold', fontSize: 16 }}>Add New To Do</p>
       <form className="formInput" onSubmit={onSubmit}>
         <textarea
           className="ModalInputStyle"

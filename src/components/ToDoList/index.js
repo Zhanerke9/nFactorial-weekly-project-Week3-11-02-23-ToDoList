@@ -44,8 +44,6 @@ export default function ToDoList({ todo, setTodo }) {
     let newToDo = [...todo.filter((item) => item.id !== id), itemToRestore];
     setTodo(newToDo);
     setToDos(newToDo);
-    // setActiveDone(false);
-    // setActiveToDo(false);
     setNewTrash(newTrash.filter((item) => item.id !== id));
     if (ActiveToDo) {
       setFiltered(newToDo.filter((item) => item.deleted === "no"));
@@ -61,8 +59,6 @@ export default function ToDoList({ todo, setTodo }) {
   }
 
   function deleteFromTrash(id) {
-    // setActiveDone(false);
-    // setActiveToDo(false);
     let newToDo = newTrash.filter((item) => item.id !== id);
     setFiltered(newToDo);
     setNewTrash(newToDo);
@@ -72,32 +68,12 @@ export default function ToDoList({ todo, setTodo }) {
     setNewModalShown(false);
   }
 
-  // function statusTodo(id) {
-  //   let itemToUpdate = [...todo].find((item) => item.id === id);
-  //   itemToUpdate.status = !itemToUpdate.status;
-  //   let trueItems = [...todo].filter((item) => item.status === true);
-  //   let falseItems = [...todo].filter((item) => item.status === false);
-  //   setTodo([...falseItems, ...trueItems]);
-  //   setToDos([...falseItems, ...trueItems]);
-  //   (ActiveToDo&& !ActiveTrash && !ActiveDone)
-  //     ? setFiltered([...ToDos].filter(item => item.deleted === "no"))
-  //     : (ActiveDone && !ActiveToDo && !ActiveTrash)
-  //     ? setFiltered(
-  //         [...todo].filter(
-  //           (item) => item.status === true && item.deleted === "no"
-  //         )
-  //       )
-  //     : setFiltered([...todo].filter((item) => item.deleted === "yes"));
-  //   setModalShown(false);
-  //   setNewModalShown(false);
-  // }
-
   function statusTodo(id) {
     let itemToUpdate = todo.find((item) => item.id === id);
     itemToUpdate.status = !itemToUpdate.status;
 
+        // This will sort the items so that items with status === true will be moved down:
     let sortedItems = todo.sort((a, b) => (a.status === b.status) ? 0 : a.status ? 1 : -1);
-    // This will sort the items so that items with status === true will be moved down
 
     setTodo(sortedItems);
     setToDos(sortedItems);
@@ -148,7 +124,15 @@ export default function ToDoList({ todo, setTodo }) {
       ];
       setToDos(newTodo);
       setFiltered(newTodo);
-      setTodo(newTodo);
+      ActiveToDo
+      ? setFiltered([...newTodo].filter((item) => item.deleted === "no"))
+      : ActiveDone
+      ? setFiltered(
+          [...newTodo].filter(
+            (item) => item.status === true && item.deleted === "no"
+          )
+        )
+      : setFiltered([...newTodo].filter((item) => item.deleted === "yes"));
     }
     closeModal();
     setModalShown(false);
